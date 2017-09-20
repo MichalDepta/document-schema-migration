@@ -22,7 +22,7 @@
     public enum Intrument
     {
         Vocals,
-        Guiter,
+        Guitar,
         Bass,
         Drums,
         Keyboard

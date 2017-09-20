@@ -5,6 +5,10 @@ VisualStudioVersion = 15.0.26228.9
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DocumentSchemaMigration.Models", "DocumentSchemaMigration.Models\DocumentSchemaMigration.Models.csproj", "{7E107F8D-34B0-4421-A1A1-6ACE0C6A65A2}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DocumentSchemaMigration.DataAccess", "DocumentSchemaMigration.DataAccess\DocumentSchemaMigration.DataAccess.csproj", "{6760A535-4A69-4358-86A9-72D439142D7C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DocumentSchemaMigration.Tests", "DocumentSchemaMigration.Tests\DocumentSchemaMigration.Tests.csproj", "{73259A39-30E7-4002-8460-F60C41D2DB0B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +19,14 @@ Global
 		{7E107F8D-34B0-4421-A1A1-6ACE0C6A65A2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7E107F8D-34B0-4421-A1A1-6ACE0C6A65A2}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7E107F8D-34B0-4421-A1A1-6ACE0C6A65A2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6760A535-4A69-4358-86A9-72D439142D7C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6760A535-4A69-4358-86A9-72D439142D7C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6760A535-4A69-4358-86A9-72D439142D7C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6760A535-4A69-4358-86A9-72D439142D7C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{73259A39-30E7-4002-8460-F60C41D2DB0B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{73259A39-30E7-4002-8460-F60C41D2DB0B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{73259A39-30E7-4002-8460-F60C41D2DB0B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{73259A39-30E7-4002-8460-F60C41D2DB0B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
