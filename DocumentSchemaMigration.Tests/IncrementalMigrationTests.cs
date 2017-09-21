@@ -1,4 +1,6 @@
-﻿using System.Threading.Tasks;
+﻿using System.Collections;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 using DocumentSchemaMigration.DataAccess;
 using MongoDB.Bson;
 using MongoDB.Driver;
@@ -22,12 +24,38 @@ namespace DocumentSchemaMigration.Tests
         [Fact]
         public async Task ShouldReadV1Document()
         {
-            var collection = this.collectionFactory.Create<Models.v1.Musician>(CollectionName);
-            await collection.InsertManyAsync(RockstarFactory.CreateV1());
+            await PopulateRockstars(RockstarFactory.CreateV1());
 
-            var rockstars = await collection.Find(x => true).ToListAsync();
+            var v1Collection = this.collectionFactory.Create<Models.v1.Musician>(CollectionName);
+            var rockstars = await v1Collection.Find(x => true).ToListAsync();
 
             Assert.NotEmpty(rockstars);
         }
+
+        [Fact]
+        public async Task ShouldReadV2Document()
+        {
+            await PopulateRockstars(RockstarFactory.CreateV2());
+
+            var v2Collection = this.collectionFactory.Create<Models.v2.Musician>(CollectionName);
+            var rockstars = await v2Collection.Find(x => true).ToListAsync();
+
+            Assert.NotEmpty(rockstars);
+        }
+
+        [Fact]
+        public async Task ShouldUpgradeV1DocumentToV2()
+        {
+            await PopulateRockstars(RockstarFactory.CreateV1());
+
+            var v2Collection = this.collectionFactory.Create<Models.v2.Musician>(CollectionName);
+            var rockstars = await v2Collection.Find(x => true).ToListAsync();
+
+            Assert.NotEmpty(rockstars);
+            Assert.All(rockstars, musician => Assert.NotNull(musician.Bands));
+        }
+
+        private Task PopulateRockstars<TRockstar>(IEnumerable<TRockstar> rockstars) =>
+            this.collectionFactory.Create<TRockstar>(CollectionName).InsertManyAsync(rockstars);
     }
 }

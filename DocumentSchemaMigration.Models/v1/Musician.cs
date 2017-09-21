@@ -2,12 +2,12 @@
 {
     public class Musician
     {
-        public Musician(string id, string firstName, string lastName, Intrument intrument)
+        public Musician(string id, string firstName, string lastName, Instrument instrument)
         {
             Id = id;
             FirstName = firstName;
             LastName = lastName;
-            Intrument = intrument;
+            Instrument = instrument;
         }
 
         public string Id { get; }
@@ -16,15 +16,6 @@
 
         public string LastName { get; }
 
-        public Intrument Intrument { get; }
-    }
-
-    public enum Intrument
-    {
-        Vocals,
-        Guitar,
-        Bass,
-        Drums,
-        Keyboard
+        public Instrument Instrument { get; }
     }
 }

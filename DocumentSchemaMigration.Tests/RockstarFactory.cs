@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using DocumentSchemaMigration.Models.v1;
+using DocumentSchemaMigration.Models;
 
 namespace DocumentSchemaMigration.Tests
 {
@@ -9,8 +9,16 @@ namespace DocumentSchemaMigration.Tests
     {
         public static IEnumerable<Models.v1.Musician> CreateV1() => new[]
         {
-            new Musician(Guid.NewGuid().ToString(), "Ritchie", "Blackmore", Intrument.Guitar),
-            new Musician(Guid.NewGuid().ToString(), "Roger", "Glover", Intrument.Bass)
+            new Models.v1.Musician(NewId(), "Ritchie", "Blackmore", Instrument.Guitar),
+            new Models.v1.Musician(NewId(), "Roger", "Glover", Instrument.Bass)
         }.AsEnumerable();
+
+        public static IEnumerable<Models.v2.Musician> CreateV2() => new[]
+        {
+            new Models.v2.Musician(NewId(), "Ian", "Gillan", Instrument.Vocals, new DateTime(1945, 8, 19), new[] {"Deep Purple"}),
+            new Models.v2.Musician(NewId(), "Jimmy", "Page", Instrument.Guitar, new DateTime(1944, 1, 9), new [] {"Led Zeppelin"})
+        }.AsEnumerable();
+
+        private static string NewId() => Guid.NewGuid().ToString();
     }
 }

@@ -1,4 +1,6 @@
-﻿using MongoDB.Bson.Serialization;
+﻿using System;
+using System.Linq;
+using MongoDB.Bson.Serialization;
 using MongoDB.Bson.Serialization.Conventions;
 
 namespace DocumentSchemaMigration.DataAccess
@@ -17,10 +19,15 @@ namespace DocumentSchemaMigration.DataAccess
             ConventionRegistry.Register("My Convention", conventionPack,
                 type => type.FullName.StartsWith("DocumentSchemaMigration.Models"));
 
-            BsonClassMap.RegisterClassMap<Models.v1.Musician>(cm =>
+            if (!BsonClassMap.IsClassMapRegistered(typeof(Models.v2.Musician)))
             {
-                cm.AutoMap();
-            });
+                BsonClassMap.RegisterClassMap<Models.v2.Musician>(cm =>
+                {
+                    cm.AutoMap();
+                    cm.MapMember(m => m.Bands).SetDefaultValue(Enumerable.Empty<string>);
+                    cm.MapMember(m => m.Birthdate).SetDefaultValue(DateTime.MinValue);
+                });
+            }
         }
     }
 }
