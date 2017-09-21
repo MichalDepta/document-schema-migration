@@ -25,9 +25,8 @@ namespace DocumentSchemaMigration.Tests
         public async Task ShouldReadV1Document()
         {
             await PopulateRockstars(RockstarFactory.CreateV1());
-
-            var v1Collection = this.collectionFactory.Create<Models.v1.Musician>(CollectionName);
-            var rockstars = await v1Collection.Find(x => true).ToListAsync();
+            
+            var rockstars = await ReadAll<Models.v1.Musician>();
 
             Assert.NotEmpty(rockstars);
         }
@@ -37,8 +36,7 @@ namespace DocumentSchemaMigration.Tests
         {
             await PopulateRockstars(RockstarFactory.CreateV2());
 
-            var v2Collection = this.collectionFactory.Create<Models.v2.Musician>(CollectionName);
-            var rockstars = await v2Collection.Find(x => true).ToListAsync();
+            var rockstars = await ReadAll<Models.v2.Musician>();
 
             Assert.NotEmpty(rockstars);
         }
@@ -48,14 +46,46 @@ namespace DocumentSchemaMigration.Tests
         {
             await PopulateRockstars(RockstarFactory.CreateV1());
 
-            var v2Collection = this.collectionFactory.Create<Models.v2.Musician>(CollectionName);
-            var rockstars = await v2Collection.Find(x => true).ToListAsync();
+            var rockstars = await ReadAll<Models.v2.Musician>();
 
             Assert.NotEmpty(rockstars);
             Assert.All(rockstars, musician => Assert.NotNull(musician.Bands));
         }
 
+        [Fact]
+        private async Task ShouldReadV3Document()
+        {
+            await PopulateRockstars(RockstarFactory.CreateV3());
+
+            var rockstars = await ReadAll<Models.v3.Musician>();
+
+            Assert.NotEmpty(rockstars);
+        }
+
+        [Fact]
+        private async Task ShouldUpgradeV2DocumentToV3()
+        {
+            await PopulateRockstars(RockstarFactory.CreateV2());
+
+            var rockstars = await ReadAll<Models.v3.Musician>();
+
+            Assert.NotEmpty(rockstars);
+        }
+
+        [Fact]
+        private async Task ShouldUpgradeV1DocumentToV3()
+        {
+            await PopulateRockstars(RockstarFactory.CreateV1());
+
+            var rockstars = await ReadAll<Models.v3.Musician>();
+
+            Assert.NotEmpty(rockstars);
+        }
+
         private Task PopulateRockstars<TRockstar>(IEnumerable<TRockstar> rockstars) =>
             this.collectionFactory.Create<TRockstar>(CollectionName).InsertManyAsync(rockstars);
+
+        private async Task<IReadOnlyList<TRockstar>> ReadAll<TRockstar>() =>
+            await this.collectionFactory.Create<TRockstar>(CollectionName).Find(_ => true).ToListAsync();
     }
 }

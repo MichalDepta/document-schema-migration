@@ -28,6 +28,15 @@ namespace DocumentSchemaMigration.DataAccess
                     cm.MapMember(m => m.Birthdate).SetDefaultValue(DateTime.MinValue);
                 });
             }
+
+            if (!BsonClassMap.IsClassMapRegistered(typeof(Models.v3.Musician)))
+            {
+                BsonClassMap.RegisterClassMap<Models.v3.Musician>(cm =>
+                {
+                    cm.AutoMap();
+                    cm.MapMember(m => m.Bands).SetDefaultValue(Enumerable.Empty<string>);
+                });
+            }
         }
     }
 }
