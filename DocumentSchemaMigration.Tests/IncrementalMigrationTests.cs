@@ -74,9 +74,18 @@ namespace DocumentSchemaMigration.Tests
             await PopulateRockstars(RockstarFactory.CreateV3());
 
             var rockstars = await ReadAll<Models.v4.Musician>();
-
-            Assert.NotEmpty(rockstars);
+            
             Assert.All(rockstars, x => Assert.NotEmpty(x.Instruments));
+        }
+
+        [Fact]
+        public async Task ShouldClearMappedExtraElement()
+        {
+            await PopulateRockstars(RockstarFactory.CreateV3());
+
+            var rockstars = await ReadAll<Models.v4.Musician>();
+
+            Assert.All(rockstars, x => Assert.Empty(x.ExtraElements.Where(element => element.Key == "instrument")));
         }
 
         private Task PopulateRockstars<TRockstar>(IEnumerable<TRockstar> rockstars) =>

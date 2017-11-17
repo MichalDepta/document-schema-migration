@@ -14,13 +14,13 @@ namespace DocumentSchemaMigration.Models.v4
             Instruments = instruments;
         }
 
-        public string Id { get; }
+        public string Id { get; private set; }
 
-        public string FirstName { get; }
+        public string FirstName { get; private set; }
 
-        public string LastName { get; }
+        public string LastName { get; private set; }
 
-        public IEnumerable<string> Bands { get; }
+        public IEnumerable<string> Bands { get; private set; }
 
         // Musician can play many instruments
         public IEnumerable<Instrument> Instruments { get; private set; }
@@ -39,7 +39,7 @@ namespace DocumentSchemaMigration.Models.v4
             if (ExtraElements.TryGetValue(oldIntrumentFieldName, out var instrument))
             {
                 ExtraElements.Remove(oldIntrumentFieldName);
-                this.Instruments = new[] {(Instrument) instrument};
+                this.Instruments = new[] { (Instrument)instrument };
             }
         }
     }
