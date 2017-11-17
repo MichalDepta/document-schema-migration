@@ -2,15 +2,16 @@
 
 namespace DocumentSchemaMigration.Models.v3
 {
-    public class Musician
+    public class Musician : IVersioned
     {
-        public Musician(string id, string firstName, string lastName, Instrument instrument, IEnumerable<string> bands)
+        public Musician(string id, string firstName, string lastName, Instrument instrument, IEnumerable<string> bands, int version = 3)
         {
             Id = id;
             FirstName = firstName;
             LastName = lastName;
             Instrument = instrument;
             Bands = bands;
+            Version = version;
         }
 
         public string Id { get; }
@@ -24,5 +25,6 @@ namespace DocumentSchemaMigration.Models.v3
         // Removed Birthday field
         
         public IEnumerable<string> Bands { get; }
+        public int Version { get; }
     }
 }

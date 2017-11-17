@@ -3,9 +3,9 @@ using System.Collections.Generic;
 
 namespace DocumentSchemaMigration.Models.v2
 {
-    public class Musician
+    public class Musician : IVersioned
     {
-        public Musician(string id, string firstName, string lastName, Instrument instrument, DateTime birthdate, IEnumerable<string> bands)
+        public Musician(string id, string firstName, string lastName, Instrument instrument, DateTime birthdate, IEnumerable<string> bands, int version = 2)
         {
             Id = id;
             FirstName = firstName;
@@ -13,6 +13,7 @@ namespace DocumentSchemaMigration.Models.v2
             Instrument = instrument;
             Birthdate = birthdate;
             Bands = bands;
+            Version = version;
         }
 
         public string Id { get; }
@@ -28,5 +29,7 @@ namespace DocumentSchemaMigration.Models.v2
 
         // New array field
         public IEnumerable<string> Bands { get; }
+
+        public int Version { get; }
     }
 }

@@ -3,15 +3,16 @@ using System.ComponentModel;
 
 namespace DocumentSchemaMigration.Models.v4
 {
-    public class Musician : ISupportInitialize
+    public class Musician : ISupportInitialize, IVersioned
     {
-        public Musician(string id, string firstName, string lastName, IEnumerable<string> bands, IEnumerable<Instrument> instruments)
+        public Musician(string id, string firstName, string lastName, IEnumerable<string> bands, IEnumerable<Instrument> instruments, int version = 4)
         {
             Id = id;
             FirstName = firstName;
             LastName = lastName;
             Bands = bands;
             Instruments = instruments;
+            Version = version;
         }
 
         public string Id { get; private set; }
@@ -25,7 +26,10 @@ namespace DocumentSchemaMigration.Models.v4
         // Musician can play many instruments
         public IEnumerable<Instrument> Instruments { get; private set; }
 
+        // Use extra elements to deserialise legacy fields
         public IDictionary<string, object> ExtraElements { get; private set; }
+
+        public int Version { get; private set; }
 
         public void BeginInit()
         {
