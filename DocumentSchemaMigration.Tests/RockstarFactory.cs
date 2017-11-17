@@ -25,6 +25,14 @@ namespace DocumentSchemaMigration.Tests
             new Models.v3.Musician(NewId(), "John", "Bonham", Instrument.Drums, new[] {"Led Zeppelin"})
         }.AsEnumerable();
 
+        public static IEnumerable<Models.v4.Musician> CreateV4() => new[]
+        {
+            new Models.v4.Musician(NewId(), "Eddie", "Van Halen", new[] {"Van Halen"},
+                new[] {Instrument.Guitar, Instrument.Keyboard}),
+            new Models.v4.Musician(NewId(), "Ronny James", "Dio", new[] {"Black Sabbath", "Dio"},
+                new[] {Instrument.Vocals})
+        };
+
         private static string NewId() => Guid.NewGuid().ToString();
     }
 }

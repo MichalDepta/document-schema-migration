@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using DocumentSchemaMigration.Models;
 using MongoDB.Bson.Serialization;
 using MongoDB.Bson.Serialization.Conventions;
 
@@ -35,6 +36,16 @@ namespace DocumentSchemaMigration.DataAccess
                 {
                     cm.AutoMap();
                     cm.MapMember(m => m.Bands).SetDefaultValue(Enumerable.Empty<string>);
+                });
+            }
+
+            if (!BsonClassMap.IsClassMapRegistered(typeof(Models.v4.Musician)))
+            {
+                BsonClassMap.RegisterClassMap<Models.v4.Musician>(cm =>
+                {
+                    cm.AutoMap();
+                    cm.MapMember(m => m.Instruments).SetDefaultValue(Enumerable.Empty<Instrument>());
+                    cm.MapExtraElementsMember(musician => musician.ExtraElements);
                 });
             }
         }
